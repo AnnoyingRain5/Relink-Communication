@@ -19,6 +19,7 @@ def packet(inJSON):
         case "signup":
             final = signupRequest()
             final.json = inJSON
+            return final
         case _:  # If the packet type is not recognised, return None
             return None
 
