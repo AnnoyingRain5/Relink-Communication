@@ -40,7 +40,7 @@ class message():
 
 class command():
     def json_get(self):
-        return json.dumps({"PacketType": "command", "command": self.name, "args": self.args})
+        return json.dumps({"PacketType": "command", "name": self.name, "args": self.args})
 
     def json_set(self, inJSON):
         self.name = json.loads(inJSON)["name"]
