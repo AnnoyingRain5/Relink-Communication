@@ -20,6 +20,10 @@ def packet(inJSON):
             final = signupRequest()
             final.json = inJSON
             return final
+        case "system":
+            final = system()
+            final.json = inJSON
+            return final
         case _:  # If the packet type is not recognised, return None
             return None
 
@@ -35,6 +39,20 @@ class message():
     def json_set(self, inJSON):
         self.username = json.loads(inJSON)["username"]
         self.text = json.loads(inJSON)["message"]
+    json = property(json_get, json_set)
+
+
+class system():
+    def __init__(self):
+        self.response = False
+        self.text = ""
+
+    def json_get(self):
+        return json.dumps({"PacketType": "system", "message": self.text, "response": self.response})
+
+    def json_set(self, inJSON):
+        self.text = json.loads(inJSON)["message"]
+        self.response = json.loads(inJSON)["response"]
     json = property(json_get, json_set)
 
 
