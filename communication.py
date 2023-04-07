@@ -24,6 +24,10 @@ def packet(inJSON):
             final = system()
             final.json = inJSON
             return final
+        case "ChannelChange":
+            final = channelChange()
+            final.json = inJSON
+            return final
         case _:  # If the packet type is not recognised, return None
             return None
 
@@ -44,15 +48,13 @@ class message():
 
 class system():
     def __init__(self):
-        self.response = False
         self.text = ""
 
     def json_get(self):
-        return json.dumps({"PacketType": "system", "message": self.text, "response": self.response})
+        return json.dumps({"PacketType": "system", "message": self.text})
 
     def json_set(self, inJSON):
         self.text = json.loads(inJSON)["message"]
-        self.response = json.loads(inJSON)["response"]
     json = property(json_get, json_set)
 
 
@@ -106,4 +108,16 @@ class result():
         self.result = json.loads(inJSON)["result"]
         self.reason = json.loads(inJSON)["reason"]
 
+    json = property(json_get, json_set)
+
+
+class channelChange():
+    def __init__(self):
+        self.channel = ""
+
+    def json_get(self):
+        return json.dumps({"PacketType": "ChannelChange", "channel": self.channel})
+
+    def json_set(self, inJSON):
+        self.channel = json.loads(inJSON)["channel"]
     json = property(json_get, json_set)
