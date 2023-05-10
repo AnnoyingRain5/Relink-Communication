@@ -40,13 +40,15 @@ class message():
     def __init__(self):
         self.username = ""
         self.text = ""
+        self.isDM = False
 
     def json_get(self):
-        return json.dumps({"PacketType": "message", "username": self.username, "message": self.text})
+        return json.dumps({"PacketType": "message", "username": self.username, "message": self.text, "isDM": self.isDM})
 
     def json_set(self, inJSON):
         self.username = json.loads(inJSON)["username"]
         self.text = json.loads(inJSON)["message"]
+        self.isDM = json.loads(inJSON)["isDM"]
     json = property(json_get, json_set)
 
 
