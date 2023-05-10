@@ -28,6 +28,10 @@ def packet(inJSON):
             final = channelChange()
             final.json = inJSON
             return final
+        case "notification":
+            final = notification()
+            final.json = inJSON
+            return final
         case _:  # If the packet type is not recognised, return None
             return None
 
@@ -120,4 +124,18 @@ class channelChange():
 
     def json_set(self, inJSON):
         self.channel = json.loads(inJSON)["channel"]
+    json = property(json_get, json_set)
+
+
+class notification():
+    def __init__(self):
+        self.type = ""
+        self.location = ""
+
+    def json_get(self):
+        return json.dumps({"PacketType": "notification", "type": self.type, "location": self.location})
+
+    def json_set(self, inJSON):
+        self.type = json.loads(inJSON)["type"]
+        self.location = json.loads(inJSON)["location"]
     json = property(json_get, json_set)
