@@ -5,38 +5,38 @@ def packet(inJSON):
     strType = json.loads(inJSON)["PacketType"]
     match strType:
         case "message":
-            final = message()
+            final = Message()
             final.json = inJSON
             return final
         case "command":
-            final = command()
+            final = Command()
             final.json = inJSON
             return final
         case "login":
-            final = loginRequest()
+            final = LoginRequest()
             final.json = inJSON
             return final
         case "signup":
-            final = signupRequest()
+            final = SignupRequest()
             final.json = inJSON
             return final
         case "system":
-            final = system()
+            final = System()
             final.json = inJSON
             return final
         case "ChannelChange":
-            final = channelChange()
+            final = ChannelChange()
             final.json = inJSON
             return final
         case "notification":
-            final = notification()
+            final = Notification()
             final.json = inJSON
             return final
         case _:  # If the packet type is not recognised, return None
             return None
 
 
-class message():
+class Message():
     def __init__(self):
         self.username = ""
         self.text = ""
@@ -52,7 +52,7 @@ class message():
     json = property(json_get, json_set)
 
 
-class system():
+class System():
     def __init__(self):
         self.text = ""
 
@@ -64,7 +64,11 @@ class system():
     json = property(json_get, json_set)
 
 
-class command():
+class Command():
+    def __init__(self):
+        self.name = ""
+        self.args = []
+
     def json_get(self):
         return json.dumps({"PacketType": "command", "name": self.name, "args": self.args})
 
@@ -74,7 +78,7 @@ class command():
     json = property(json_get, json_set)
 
 
-class loginRequest():
+class LoginRequest():
     def __init__(self):
         self.username = ""
         self.password = ""
@@ -88,7 +92,7 @@ class loginRequest():
     json = property(json_get, json_set)
 
 
-class signupRequest():
+class SignupRequest():
     def __init__(self):
         self.username = ""
         self.password = ""
@@ -102,7 +106,7 @@ class signupRequest():
     json = property(json_get, json_set)
 
 
-class result():
+class Result():
     def __init__(self):
         self.result = False
         self.reason = ""
@@ -117,7 +121,7 @@ class result():
     json = property(json_get, json_set)
 
 
-class channelChange():
+class ChannelChange():
     def __init__(self):
         self.channel = ""
 
@@ -129,7 +133,7 @@ class channelChange():
     json = property(json_get, json_set)
 
 
-class notification():
+class Notification():
     def __init__(self):
         self.type = ""
         self.location = ""
