@@ -28,6 +28,10 @@ def packet(inJSON):
             final = ChannelChange()
             final.json = inJSON
             return final
+        case "FederationRequest":
+            final = FederationRequest()
+            final.json = inJSON
+            return final
         case "notification":
             final = Notification()
             final.json = inJSON
@@ -103,6 +107,20 @@ class SignupRequest():
     def json_set(self, inJSON):
         self.username = json.loads(inJSON)["username"]
         self.password = json.loads(inJSON)["password"]
+    json = property(json_get, json_set)
+
+
+class FederationRequest():
+    def __init__(self):
+        self.username = ""
+        self.channel = ""
+
+    def json_get(self):
+        return json.dumps({"PacketType": "FederationRequest", "username": self.username, "channel": self.channel})
+
+    def json_set(self, inJSON):
+        self.username = json.loads(inJSON)["username"]
+        self.channel = json.loads(inJSON)["channel"]
     json = property(json_get, json_set)
 
 
