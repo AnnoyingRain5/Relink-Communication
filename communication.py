@@ -2,6 +2,9 @@ import json
 
 
 def packet(inJSON):
+    '''Factory function to convert JSON packets to communication objects.
+
+    Returns None if the type is not recognised'''
     strType = json.loads(inJSON)["PacketType"]
     match strType:
         case "message":
