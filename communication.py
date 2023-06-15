@@ -47,10 +47,6 @@ def packet(inJSON):
             final = CommandList()
             final.json = inJSON
             return final
-        case "Request":
-            final = Request()
-            final.json = inJSON
-            return final
         case _:  # If the packet type is not recognised, return None
             return None
 
@@ -185,7 +181,7 @@ class UserList():
         self.serverList = []
 
     def json_get(self):
-        return json.dumps({"PacketType": "NotificaionList", "channelList": self.channelList, "serverList": self.serverList})
+        return json.dumps({"PacketType": "UserList", "channelList": self.channelList, "serverList": self.serverList})
 
     def json_set(self, inJSON):
         self.channelList = json.loads(inJSON)["channelList"]
@@ -200,17 +196,6 @@ class CommandList():
         return json.dumps({"PacketType": "CommandList", "commandList": self.commandList})
 
     def json_set(self, inJSON):
-        self.commandList = json.loads(inJSON)["channelList"]
+        self.commandList = json.loads(inJSON)["CommandList"]
     json = property(json_get, json_set)
 
-class Request():
-    # to request a commandlist or userlist
-    def __init__(self):
-        self.name = ""
-
-    def json_get(self):
-        return json.dumps({"PacketType": "Request", "name": self.name})
-
-    def json_set(self, inJSON):
-        self.commandList = json.loads(inJSON)["channelList"]
-    json = property(json_get, json_set)
