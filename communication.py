@@ -196,6 +196,6 @@ class CommandList():
         return json.dumps({"PacketType": "CommandList", "commandList": self.commandList})
 
     def json_set(self, inJSON):
-        self.commandList = json.loads(inJSON)["CommandList"]
+        self.commandList = json.loads(inJSON)["commandList"]
     json = property(json_get, json_set)
 
